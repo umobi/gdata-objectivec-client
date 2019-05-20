@@ -106,7 +106,10 @@ typedef void *GDataServiceGoogleEntryBaseCompletionHandler;
   NSString *captchaAnswer_;
 
   NSString *authToken_;
-
+    
+  // AuthSub support
+  NSString *accessToken_;
+    
   // AuthSub support
   NSString *authSubToken_;
 

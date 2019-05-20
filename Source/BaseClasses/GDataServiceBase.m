@@ -75,53 +75,6 @@ static void XorPlainMutableData(NSMutableData *mutableData) {
 }
 @end
 
-@interface GDataUploadFetcherClass : GTMBridgeFetcher
-
-// If GDataUploadFetcher is available, it can be used for chunked uploads
-//
-// We locally declare some methods of GDataUploadFetcher so we do not need to import the header,
-// as some projects may not have it available. The declared methods vary depending on the value of
-// GTM_USE_SESSION_FETCHER, since one is based on GTMSessionUploadFetcher and the other on
-// GTMHTTPUploadFetcher.
-#if GTM_USE_SESSION_FETCHER
-+ (instancetype)uploadFetcherWithRequest:(NSURLRequest *)request
-                          uploadMIMEType:(NSString *)uploadMIMEType
-                               chunkSize:(int64_t)chunkSize
-                          fetcherService:(GTMSessionFetcherService *)fetcherServiceOrNil;
-
-+ (instancetype)uploadFetcherWithLocation:(NSURL *)uploadLocationURL
-                           uploadMIMEType:(NSString *)uploadMIMEType
-                                chunkSize:(int64_t)chunkSize
-                           fetcherService:(GTMSessionFetcherService *)fetcherServiceOrNil;
-
-@property(strong) NSURL *uploadLocationURL;
-@property(strong) NSData *uploadData;
-@property(strong) NSURL *uploadFileURL;
-@property(strong) NSFileHandle *uploadFileHandle;
-#else
-+ (GTMHTTPUploadFetcher *)uploadFetcherWithRequest:(NSURLRequest *)request
-                                        uploadData:(NSData *)data
-                                    uploadMIMEType:(NSString *)uploadMIMEType
-                                         chunkSize:(NSUInteger)chunkSize
-                                    fetcherService:(GTMHTTPFetcherService *)fetcherService;
-+ (GTMHTTPUploadFetcher *)uploadFetcherWithRequest:(NSURLRequest *)request
-                                  uploadFileHandle:(NSFileHandle *)uploadFileHandle
-                                    uploadMIMEType:(NSString *)uploadMIMEType
-                                         chunkSize:(NSUInteger)chunkSize
-                                    fetcherService:(GTMHTTPFetcherService *)fetcherService;
-+ (GTMHTTPUploadFetcher *)uploadFetcherWithLocation:(NSURL *)locationURL
-                                   uploadFileHandle:(NSFileHandle *)uploadFileHandle
-                                     uploadMIMEType:(NSString *)uploadMIMEType
-                                          chunkSize:(NSUInteger)chunkSize
-                                     fetcherService:(GTMHTTPFetcherService *)fetcherService;
-#endif  // GTM_USE_SESSION_FETCHER
-
-- (void)pauseFetching;
-- (void)resumeFetching;
-- (BOOL)isPaused;
-
-@end
-
 @interface GDataEntryBase (PrivateMethods)
 - (NSDictionary *)contentHeaders;
 @end

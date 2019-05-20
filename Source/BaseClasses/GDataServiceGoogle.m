@@ -1262,13 +1262,17 @@ enum {
 
   // add the auth token to the header
   if ([authToken length] > 0) {
-    NSString *value = [NSString stringWithFormat:@"GoogleLogin auth=%@",
+    NSString *value = [NSString stringWithFormat:@"Bearer %@",
                        authToken];
     [request setValue:value forHTTPHeaderField: @"Authorization"];
   } else if ([authSubToken_ length] > 0) {
     NSString *value = [NSString stringWithFormat:@"AuthSub token=%@",
                        authSubToken_];
     [request setValue:value forHTTPHeaderField: @"Authorization"];
+  } else if ([accessToken_ length] > 0) {
+      NSString *value = [NSString stringWithFormat:@"Bearer %@",
+                         accessToken_];
+      [request setValue:value forHTTPHeaderField: @"Authorization"];
   }
   return request;
 }

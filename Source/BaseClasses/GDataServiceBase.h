@@ -20,6 +20,8 @@
 #import "GDataDefines.h"
 
 #if GTM_USE_SESSION_FETCHER
+  #import "GTMSessionUploadFetcher.h"
+
   #define GDataUploadFetcherClass GTMSessionUploadFetcher
   #define GDataUploadFetcherClassStr @"GTMSessionUploadFetcher"
 
@@ -29,6 +31,8 @@
 
   #import "GTMSessionFetcherService.h"
 #else
+  #import "GTMHTTPUploadFetcher.h"
+
   #define GDataUploadFetcherClass GTMHTTPUploadFetcher
   #define GDataUploadFetcherClassStr @"GTMHTTPUploadFetcher"
 
